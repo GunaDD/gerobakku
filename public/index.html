@@ -55,19 +55,13 @@
         <p id="menu-description">Marker Description</p> -->
     <!-- </div>  -->
 
-    <div class="container mt-5" style="height: fit-content;">
-        <div id="menu">
-            <div id="menu-description"></div>
-        </div>
-        <!-- <div class="card" style="display: none;">
-            <img class="card-img-top" src="public-images/tahubulat.jpeg" alt="Card image cap">
-            
+    <div class="container mt-5">
+        <div id="menu" class="card" style="display: none;">
+            <div class="card-header" id="menu-title"> <img src="public-images/tahubulat.jpeg" alt="gerobak-pic"> </div>
             <div class="card-body">
-                <p class="card-text">
-                    <h3>Tahu Bulat</h3>
-                </p>
+                <p class="card-text" id="menu-description">Menu Description</p>
             </div>
-        </div> -->
+        </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
@@ -109,31 +103,11 @@
             });
         });
 
-        // _showMenu: function() {
-        //     // Get the menu element
-        //     var menu = document.getElementById('menu');
-        //     if (menu) {
-        //         // Update menu content with marker details
-        //         document.getElementById('menu-title').innerText = 'Marker';
-        //         document.getElementById('menu-description').innerText = 'Marker Description';
-        //         // Display the menu
-        //         menu.style.display = 'block';
-        //     }
-        // }
-
-        // function showMenu() {
-            // var menu = document.getElementById('menu');
-            // if (menu) {
-            //     // Update menu content with marker details
-            //     document.getElementById('menu-title').innerText = 'Marker';
-            //     document.getElementById('menu-description').innerText = 'Nasgor';
-            //     // Display the menu
-            //     menu.style.display = 'block';
-            // }
-            // document.getElementById('menu-title').innerText = title;
-            // document.getElementById('menu-description').innerText = description;
-            // document.getElementById('menu').style.display = 'block';
-        // }
+        function showMenu() {
+            document.getElementById('menu-title').innerText = title;
+            document.getElementById('menu-description').innerText = description;
+            document.getElementById('menu').style.display = 'block';
+        }
     </script>
 </body>
 </html>

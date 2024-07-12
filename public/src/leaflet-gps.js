@@ -212,14 +212,8 @@
             var menu = document.getElementById('menu');
             if (menu) {
                 // Update menu content with marker details
-				document.getElementById('menu-description').innerHTML = `
-					<div class="card">
-						<img class="card-img-top" src="public-images/tahubulat.jpeg" alt="Card image cap">
-						<div class="card-body">
-							<h3>Tahu Bulat</h3>
-						</div>
-					</div>
-				`;
+                document.getElementById('menu-title').innerText = 'Marker';
+                document.getElementById('menu-description').innerText = 'Marker Description';
                 // Display the menu
                 menu.style.display = 'block';
             }
