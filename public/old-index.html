@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerobakku</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="src/leaflet-gps.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        #map { height: 100vh; }
+        #menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 200px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            z-index: 1000; /* Add z-index to ensure the menu is on top */
+            display: none; /* Initially hidden */
+        }
+
+        .navbar {
+            height: 5%; /* Ensure the navbar height is explicitly set */
+        }
+        
+        .navbar-brand img {
+            height: 100%;
+            max-height: 56px; /* Match the navbar height */
+            width: auto;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: auto; /* Ensures the image maintains its aspect ratio */
+            max-height: 200px; /* Optional: limit the maximum height of the image */
+            object-fit: cover; /* Ensures the image covers the entire area of its container */
+        }
+
+        .card {
+            width: 100%; /* Make the card width 100% of its container */
+            max-width: 600px; /* Optional: limit the maximum width of the card */
+            margin: auto; /* Center the card horizontally */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand"> <img src="public-images/logo.png" alt="logo"> </a>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Mau makan apa?" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Cari</button>
+            </form>
+        </div>
+    </nav>
+    
+    <div id="map"></div>
+
+    <div class="container mt-5" style="height: fit-content;">
+        <div id="menu">
+            <div id="menu-description"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="src/leaflet-gps.js"></script>
+    <script>
+        const socket = io();
+
+        var map = new L.Map('map', {
+            zoom: 15,
+            center: new L.latLng([-6.286316, 106.890064])
+        });
+
+        map.addLayer(new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
+
+        var customIcon = L.icon({
+            iconUrl: 'public-images/logo.png', // Path to your custom icon image
+            iconSize: [50, 50], // Size of the icon
+            iconAnchor: [22, 22], // Point of the icon which will correspond to marker's location
+            popupAnchor: [-3, -76] // Point from which the popup should open relative to the iconAnchor
+        });
+
+        var gps = new L.Control.Gps({
+            autoCenter: true,
+            marker: new L.Marker([0, 0], {
+                icon: customIcon // Use the custom icon
+            })
+        });
+
+        gps.on('gps:located', function(e) {
+            console.log(e.latlng, map.getCenter());
+            socket.emit('locationUpdate', { latlng: e.latlng });
+        });
+
+        gps.on('gps:disabled', function(e) {
+            e.marker.closePopup();
+        });
+
+        gps.addTo(map);
+
+        socket.on('locationUpdate', (data) => {
+            var marker = L.marker(data.latlng).addTo(map).bindPopup('User location');
+            
+            marker.on('click', function() {
+                showMenu('User location', 'Description for this location');
+            });
+        });
+    </script>
+</body>
+</html>
