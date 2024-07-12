@@ -40,9 +40,16 @@
 
         gps.addTo(map);
 
+        var otherUsersMarkers = {};
+
         socket.on('locationUpdate', (data) => {
-            L.marker(data.latlng).addTo(map).bindPopup('User location').openPopup();
+            if (!otherUsersMarkers[data.id]) {
+                otherUsersMarkers[data.id] = L.marker(data.latlng).addTo(map).bindPopup('User location').openPopup();
+            } else {
+                otherUsersMarkers[data.id].setLatLng(data.latlng);
+            }
         });
+
     </script>
 </body>
 </html>

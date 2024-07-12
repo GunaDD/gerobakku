@@ -1,39 +1,15 @@
 {
-  "name": "leaflet-gps",
-  "version": "1.7.8",
-  "description": "Leaflet Control plugin for tracking gps position, with more options",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:stefanocudini/leaflet-gps.git"
+  "name": "testing-gps",
+  "version": "1.0.0",
+  "description": "Real-time GPS tracking application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
   },
-  "homepage": "https://opengeo.tech/maps/leaflet-gps/",
-  "author": {
-    "name": "Stefano Cudini",
-    "email": "stefano.cudini@gmail.com",
-    "url": "https://opengeo.tech/"
-  },
+  "author": "Your Name",
   "license": "MIT",
-  "keywords": [
-    "gis",
-    "map",
-    "gps",
-    "leaflet"
-  ],
-  "main": "dist/leaflet-gps.src.js",
   "dependencies": {
-    "leaflet": "*",
     "express": "^4.17.1",
     "socket.io": "^4.0.0"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "~0.7.0",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-todos": "~0.2.0"
   }
 }
