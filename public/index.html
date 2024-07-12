@@ -51,7 +51,7 @@
 <body>
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand"> <img src="public-images/logo.jpeg" alt="logo"> </a>
+          <a class="navbar-brand"> <img src="public-images/logo.png" alt="logo"> </a>
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Mau makan apa?" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Cari</button>
@@ -80,10 +80,17 @@
 
         map.addLayer(new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
 
+        var customIcon = L.icon({
+            iconUrl: 'public-images/logo.png', // Path to your custom icon image
+            iconSize: [50, 50], // Size of the icon
+            iconAnchor: [22, 22], // Point of the icon which will correspond to marker's location
+            popupAnchor: [-3, -76] // Point from which the popup should open relative to the iconAnchor
+        });
+
         var gps = new L.Control.Gps({
             autoCenter: true,
             marker: new L.Marker([0, 0], {
-                icon: new L.Icon.Default() // Ensure default marker icon is used
+                icon: customIcon // Ensure default marker icon is used
             })
         });
 

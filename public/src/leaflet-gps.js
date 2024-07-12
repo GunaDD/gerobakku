@@ -32,7 +32,7 @@
         //  deactivate      deactive tracking on runtime
         //
         options: {
-            autoActive: true,      // activate control at startup
+            autoActive: false,      // activate control at startup
             autoCenter: true,      // move map when gps location change
             autoFollow: true,       // move map continuously
             maxZoom: null,          // max zoom for autoCenter
