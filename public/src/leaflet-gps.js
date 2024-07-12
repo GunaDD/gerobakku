@@ -213,16 +213,22 @@
             if (menu) {
                 // Update menu content with marker details
 				document.getElementById('menu-description').innerHTML = `
-					<div class="card">
+						<div class="card">
+						<button type="button" class="btn-close" aria-label="Close" id="close-btn" style="position: absolute; top: 10px; right: 10px;"></button>
 						<img class="card-img-top" src="public-images/tahubulat.jpeg" alt="Card image cap">
 						<div class="card-body">
 							<h3>Tahu Bulat</h3>
+							<p class="card-text">Tahu Bulat Digoreng dadakan Lima ratusan</p>
 							<a class="btn btn-primary" href="#" role="button">Kunjungi</a>
 						</div>
 					</div>
 				`;
                 // Display the menu
                 menu.style.display = 'block';
+
+				document.getElementById('close-btn').addEventListener('click', function() {
+					menu.style.display = 'none';
+				});
             }
         },
 
