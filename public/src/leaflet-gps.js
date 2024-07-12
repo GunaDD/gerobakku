@@ -212,7 +212,7 @@
             var menu = document.getElementById('menu');
             if (menu) {
                 // Update menu content with marker details
-                document.getElementById('menu-title').innerText = 'Marker';
+                document.getElementById('menu-title').innerText = 'Marker Title';
                 document.getElementById('menu-description').innerText = 'Marker Description';
                 // Display the menu
                 menu.style.display = 'block';
