@@ -39,35 +39,18 @@
         <div class="container-fluid">
           <a class="navbar-brand"> <img src="public-images/logo.jpeg" alt="logo"> </a>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Mau makan apa?" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Cari</button>
           </form>
         </div>
       </nav>
     
     <div id="map"></div>
 
-    <!-- <div id="menu">
-        <div class="card">
-            <img src="public-images/tahubulat.jpeg" class="card-img-top" alt="gerobak-pic">
-        </div>  
-        <h3 id="menu-title">Marker Title</h3>
-        <p id="menu-description">Marker Description</p> -->
-    <!-- </div>  -->
-
     <div class="container mt-5" style="height: fit-content;">
         <div id="menu">
             <div id="menu-description"></div>
         </div>
-        <!-- <div class="card" style="display: none;">
-            <img class="card-img-top" src="public-images/tahubulat.jpeg" alt="Card image cap">
-            
-            <div class="card-body">
-                <p class="card-text">
-                    <h3>Tahu Bulat</h3>
-                </p>
-            </div>
-        </div> -->
     </div>
 
     <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
@@ -108,32 +91,6 @@
                 showMenu('User location', 'Description for this location');
             });
         });
-
-        // _showMenu: function() {
-        //     // Get the menu element
-        //     var menu = document.getElementById('menu');
-        //     if (menu) {
-        //         // Update menu content with marker details
-        //         document.getElementById('menu-title').innerText = 'Marker';
-        //         document.getElementById('menu-description').innerText = 'Marker Description';
-        //         // Display the menu
-        //         menu.style.display = 'block';
-        //     }
-        // }
-
-        // function showMenu() {
-            // var menu = document.getElementById('menu');
-            // if (menu) {
-            //     // Update menu content with marker details
-            //     document.getElementById('menu-title').innerText = 'Marker';
-            //     document.getElementById('menu-description').innerText = 'Nasgor';
-            //     // Display the menu
-            //     menu.style.display = 'block';
-            // }
-            // document.getElementById('menu-title').innerText = title;
-            // document.getElementById('menu-description').innerText = description;
-            // document.getElementById('menu').style.display = 'block';
-        // }
     </script>
 </body>
 </html>
