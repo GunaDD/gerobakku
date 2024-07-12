@@ -1,17 +1,17 @@
-(function (factory) {
-    if(typeof define === 'function' && define.amd) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
         // AMD
         define(['leaflet'], factory);
-    } else if(typeof module !== 'undefined') {
+    } else if (typeof module !== 'undefined') {
         // Node/CommonJS
         module.exports = factory(require('leaflet'));
     } else {
         // Browser globals
-        if(typeof window.L === 'undefined')
+        if (typeof window.L === 'undefined')
             throw 'Leaflet must be loaded first';
         factory(window.L);
     }
-})(function (L) {
+})(function(L) {
 
     L.Control.Gps = L.Control.extend({
 
@@ -20,27 +20,27 @@
         // Managed Events:
         //  Event           Data passed         Description
         //
-        //  gps:located     {marker,latlng}     fired after gps marker is located
-        //  gps:disabled    {marker}            fired after gps is disabled
-        //  gps:error       {message}           fired after gps error
+        //  gps:located     {marker, latlng}     fired after gps marker is located
+        //  gps:disabled    {marker}             fired after gps is disabled
+        //  gps:error       {message}            fired after gps error
         //
         // Methods exposed:
         //  Method          Description
         //
         //  getLocation     return Latlng and marker of current position
         //  activate        active tracking on runtime
-        //  deactivate      deactive tracking on runtime
+        //  deactivate      deactivate tracking on runtime
         //
         options: {
-            autoActive: false,      // activate control at startup
-            autoCenter: false,      // move map when gps location change
-            autoFollow: true,       // move map continuously
-            maxZoom: null,          // max zoom for autoCenter
-            textErr: '',            // error message on alert notification
-            callErr: null,          // function that run on gps error activating
+            autoActive: false, // activate control at startup
+            autoCenter: false, // move map when gps location changes
+            autoFollow: true, // move map continuously
+            maxZoom: null, // max zoom for autoCenter
+            textErr: '', // error message on alert notification
+            callErr: null, // function that runs on gps error activating
             title: 'Center map on your location',
-            marker: null,           // L.Marker used for location, default use a L.CircleMarker
-            style: {                // default L.CircleMarker styles
+            marker: null, // L.Marker used for location, default use an L.CircleMarker
+            style: { // default L.CircleMarker styles
                 radius: 5,
                 weight: 2,
                 color: '#c20',
@@ -56,16 +56,16 @@
         },
 
         initialize: function(options) {
-            if(options && options.style)
+            if (options && options.style)
                 options.style = L.Util.extend({}, this.options.style, options.style);
             L.Util.setOptions(this, options);
             this._errorFunc = this.options.callErr || this.showAlert;
             this._isActive = false;
             this._isLoading = false;
-            this._currentLocation = null;  // store last location
+            this._currentLocation = null; // store last location
         },
 
-        onAdd: function (map) {
+        onAdd: function(map) {
 
             this._map = map;
 
@@ -84,19 +84,13 @@
             this._alert.style.display = 'none';
 
             this._gpsMarker = this.options.marker ? this.options.marker : new L.CircleMarker([0, 0], this.options.style);
-            // if(this.options.accuracy)
+            // if (this.options.accuracy)
             //     this._accuracyCircle = new L.Circle([0, 0], this.options.style);
 
-            if(this.options.autoFollow) {
-                this._map.on('locationfound', this._drawGps, this);
-            }
-            else {
-                this._map.once('locationfound', this._drawGps, this);
-            }
-
+            this._map.on('locationfound', this._drawGps, this);
             this._map.on('locationerror', this._errorGps, this);
 
-            if(this.options.autoActive)
+            if (this.options.autoActive)
                 this.activate();
 
             return container;
@@ -106,17 +100,17 @@
             this.deactivate();
 
             map.off('locationfound', this._drawGps, this)
-               .off('locationerror', this._errorGps, this);
+                .off('locationerror', this._errorGps, this);
         },
 
         _switchGps: function() {
-            if(this._isActive || this._isLoading)
+            if (this._isActive || this._isLoading)
                 this.deactivate();
             else
                 this.activate();
         },
 
-        getLocation: function() {  // get last location
+        getLocation: function() { // get last location
             return this._currentLocation;
         },
 
@@ -136,16 +130,16 @@
 
                 this._isLoading = false;
 
-                if(this.options.autoCenter)
+                if (this.options.autoCenter)
                     this._map.setView(e.latlng, this.options.maxZoom || this._map.getZoom());
 
             }, this);
 
             this._map.locate({
-                enableHighAccuracy: false,
+                enableHighAccuracy: true,
                 watch: true,
-                setView: false, // this.options.autoCenter,
-                // maxZoom: this.options.maxZoom || this._map.getZoom()
+                setView: false,
+                maxZoom: this.options.maxZoom || this._map.getZoom()
             });
         },
 
@@ -157,44 +151,27 @@
             L.DomUtil.removeClass(this._button, 'active');
             L.DomUtil.removeClass(this._button, 'loading');
 
-            if(this._map) {
+            if (this._map) {
                 this._map.stopLocate();
                 this._map.removeLayer(this._gpsMarker);
             }
 
-            // this._gpsMarker.setLatLng([-90, 0]);  // move to antarctica!
-            // TODO make method .hide() using _icon.style.display = 'none'
             this.fire('gps:disabled', { marker: this._gpsMarker });
         },
 
         _drawGps: function(e) {
 
-            var self = this;
-
-            // TODO use e.accuracy for gps circle radius/color
             this._currentLocation = this.options.transform(e.latlng);
-
             this._gpsMarker.setLatLng(this._currentLocation);
 
-            // Add click event listener to the marker
-            this._gpsMarker.on('click', function() {
-                self._showMenu();
+            if (this.options.autoCenter || this.options.autoFollow) {
+                this._map.setView(this._currentLocation, this.options.maxZoom || this._map.getZoom());
+            }
+
+            this.fire('gps:located', {
+                marker: this._gpsMarker,
+                latlng: this._currentLocation
             });
-
-            if(this.options.autoFollow) {
-                this._map.on('locationfound', this._drawGps, this);
-            }
-            else {
-                this._map.once('locationfound', this._drawGps, this);
-            }
-
-            this._map.on('locationerror', this._errorGps, this);
-
-            if(this.options.autoActive)
-                this.activate();
-
-            // if(this._gpsMarker.accuracyCircle)
-            //     this._gpsMarker.accuracyCircle.setRadius((e.accuracy / 2).toFixed(0));
         },
 
         _errorGps: function(e) {
@@ -205,18 +182,6 @@
             L.DomUtil.addClass(this._button, 'disabled');
 
             this._errorFunc.call(this, this.options.textErr || e.message);
-        },
-
-        _showMenu: function() {
-            // Get the menu element
-            var menu = document.getElementById('menu');
-            if (menu) {
-                // Update menu content with marker details
-                document.getElementById('menu-title').innerText = 'Marker Title';
-                document.getElementById('menu-description').innerText = 'Marker Description';
-                // Display the menu
-                menu.style.display = 'block';
-            }
         },
 
         showAlert: function(text) {
@@ -230,17 +195,16 @@
         }
     });
 
-    L.Map.addInitHook(function () {
+    L.Map.addInitHook(function() {
         if (this.options.gpsControl) {
             this.gpsControl = L.control.gps(this.options.gpsControl);
             this.addControl(this.gpsControl);
         }
     });
 
-    L.control.gps = function (options) {
+    L.control.gps = function(options) {
         return new L.Control.Gps(options);
     };
 
     return L.Control.Gps;
 });
-
