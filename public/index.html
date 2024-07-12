@@ -16,6 +16,7 @@
             background: white;
             padding: 10px;
             border: 1px solid #ccc;
+            z-index: 1000; /* Add z-index to ensure the menu is on top */
             display: none; /* Initially hidden */
         }
     </style>
@@ -40,7 +41,10 @@
         map.addLayer(new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
 
         var gps = new L.Control.Gps({
-            autoCenter: true
+            autoCenter: true,
+            marker: new L.Marker([0, 0], {
+                icon: new L.Icon.Default() // Ensure default marker icon is used
+            })
         });
 
         gps.on('gps:located', function(e) {
@@ -70,3 +74,6 @@
     </script>
 </body>
 </html>
+
+
+
