@@ -40,9 +40,9 @@ module.exports = function(grunt) {
                     console: true,
                     module: true
                 },
-                "-W099": true,  //ignora tabs e space warning
+                "-W099": true, 
                 "-W033": true,
-                "-W044": true   //ignore regexp
+                "-W044": true   
             },
             files: ['src/*.js']
         },

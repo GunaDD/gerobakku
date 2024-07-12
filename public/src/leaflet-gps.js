@@ -1,12 +1,9 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD
         define(['leaflet'], factory);
     } else if (typeof module !== 'undefined') {
-        // Node/CommonJS
         module.exports = factory(require('leaflet'));
     } else {
-        // Browser globals
         if (typeof window.L === 'undefined')
             throw 'Leaflet must be loaded first';
         factory(window.L);
@@ -143,17 +140,6 @@
             this.timerAlert = setTimeout(function () {
                 that._alert.style.display = 'none';
             }, 5000);
-        },
-
-        _showMenu: function() {
-            // Get the menu element
-            var menu = document.getElementById('menu');
-            if (menu) {
-                // Update menu content with marker details
-                document.getElementById('menu-title').innerText = 'Marker Title';
-                // Display the menu
-                menu.style.display = 'block';
-            }
         }
     });
 

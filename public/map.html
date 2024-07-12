@@ -22,7 +22,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             z-index: 10000000;
-            display: none; /* Initially hidden */
+            display: none; 
         }
 
         #map { 
@@ -32,9 +32,9 @@
 
         .card-img-top {
             width: 100%;
-            height: auto; /* Ensures the image maintains its aspect ratio */
-            max-height: 200px; /* Optional: limit the maximum height of the image */
-            object-fit: cover; /* Ensures the image covers the entire area of its container */
+            height: auto; 
+            max-height: 200px; 
+            object-fit: cover; 
         }
     </style>
 </head>
@@ -67,9 +67,9 @@
 
         var customIcon = L.icon({
             iconUrl: 'public-images/logo.png',
-            iconSize: [38, 38], // size of the icon
-            iconAnchor: [22, 38], // point of the icon which will correspond to marker's location
-            popupAnchor: [-3, -38] // point from which the popup should open relative to the iconAnchor
+            iconSize: [38, 38], 
+            iconAnchor: [22, 38], 
+            popupAnchor: [-3, -38] 
         });
 
         var gps = new L.Control.Gps({
