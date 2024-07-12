@@ -21,7 +21,9 @@
   ],
   "main": "dist/leaflet-gps.src.js",
   "dependencies": {
-    "leaflet": "*"
+    "leaflet": "*",
+    "express": "^4.17.1",
+    "socket.io": "^4.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
