@@ -217,7 +217,6 @@
 						<img class="card-img-top" src="public-images/tahubulat.jpeg" alt="Card image cap">
 						<div class="card-body">
 							<h3>Tahu Bulat</h3>
-							<a class="btn btn-primary" href="#" role="button">Kunjungi</a>
 						</div>
 					</div>
 				`;
