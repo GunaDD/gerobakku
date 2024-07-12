@@ -143,6 +143,17 @@
             this.timerAlert = setTimeout(function () {
                 that._alert.style.display = 'none';
             }, 5000);
+        },
+
+        _showMenu: function() {
+            // Get the menu element
+            var menu = document.getElementById('menu');
+            if (menu) {
+                // Update menu content with marker details
+                document.getElementById('menu-title').innerText = 'Marker Title';
+                // Display the menu
+                menu.style.display = 'block';
+            }
         }
     });
 
