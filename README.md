@@ -1,6 +1,8 @@
 # 🛒 Gerobakku
 
-Built during **GarudaHacks 5.0**, **Gerobakku** is a web platform designed to **empower and connect street vendors and their communities**. We participated in the _Stronger Together_ track and proudly earned **🏅 5th Place Best Project** (out of a total of 102 submitted projects)!
+Built during **GarudaHacks 5.0**, **Gerobakku** is a web platform designed to **empower and connect street vendors and their communities**. 
+
+🏆 Awarded **5th Place Best Project** (out of a total of 102 submitted projects)!
 
 🌐 [Devpost Submission](https://devpost.com/software/gerobakku?ref_content=my-projects-tab&ref_feature=my_projects)
 
