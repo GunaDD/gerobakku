@@ -1,0 +1,46 @@
+<!-- templates/map.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Vendor Locations</h2>
+            <div id="map" style="height: 500px;" class="mb-4"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+
+<script>
+    // Initialize map centered on Jakarta
+    const map = L.map('map').setView([-6.2088, 106.8456], 13);
+    
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add markers for all active vendors
+    {% for vendor in vendors %}
+        L.marker([{{ vendor.latitude }}, {{ vendor.longitude }}]).addTo(map);
+    {% endfor %}
+
+    // Get user's location and add to map
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLocation = [position.coords.latitude, position.coords.longitude];
+            
+            // Add user marker
+            L.marker(userLocation)
+                .bindPopup('Your Location')
+                .addTo(map);
+            
+            // Center map on user
+            map.setView(userLocation, 13);
+        });
+    }
+</script>
+{% endblock %}
